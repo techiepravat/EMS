@@ -1,15 +1,20 @@
 package org.comp.connection;
 
+import java.util.Date;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 
 import org.comp.pojo.Employee;
 
 public class EmployeeMnagementTest {
 
-	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+	public static void main(String[] args) throws ClassNotFoundException, SQLException, ParseException {
 
 		int selection;
 		Scanner sc = new Scanner(System.in);
@@ -33,14 +38,28 @@ public class EmployeeMnagementTest {
 		case 1:
 			System.out.println("1 - Add Employee");
 			System.out.println("------------------------");
-			System.out.println("Please Enter Employee Name:");
-			String name = sc.next();
-			name = name + sc.nextLine();
+			System.out.println("Please Enter Employee  First Name:");
+			String fName = sc.next();
+			System.out.println("Please Enter Employee Middle Name:");
+			String mName = sc.next();
+			System.out.println("Please Enter Employee Last Name:");
+			String lName = sc.next();
+			// String name = fName + mName + lName + sc.nextLine();
+			System.out.println("Please Enter Employee Pesonal Mailid:");
+			String mailId = sc.next();
 			System.out.println("Please Enter Employee Address: ");
 			String address = sc.next();
+			System.out.println("Please Enter Employee Date of Birth: (yyyy-mm-dd)");
+			String dob = sc.next();
 
-			emp.setEmpName(name);
+			Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(dob);
+
+			emp.setFirstName(fName);
+			emp.setMiddleName(mName);
+			emp.setLastName(lName);
+			emp.setMailId(mailId);
 			emp.setEmpAddress(address);
+			emp.setEmpbirthDate(date1);
 			emp.setEmpStatus("Active");
 
 			employee.add(emp);
@@ -64,9 +83,9 @@ public class EmployeeMnagementTest {
 			case 1:
 				System.out.println("Enter your Employee Name:");
 				String name1 = sc.next();
-				emp.setEmpName(name1);
+				// emp.setEmpName(name1);
 				emp.setEmpId(id);
-				method.upadteEmployee(emp);
+				// method.upadteEmployee(emp);
 				break;
 			case 2:
 				System.out.println("Enter your Employee Address:");
@@ -75,17 +94,17 @@ public class EmployeeMnagementTest {
 				emp.setEmpAddress(address1);
 				emp.setEmpId(id);
 				// employee.add(emp);
-				method.upadteEmployee(emp);
+				// method.upadteEmployee(emp);
 				break;
 			case 3:
 				System.out.println("Enter your Employee Name:");
 				String name2 = sc.next();
 				System.out.println("Enter your Employee Address:");
 				String address2 = sc.next();
-				emp.setEmpName(name2);
+				// emp.setEmpName(name2);
 				emp.setEmpAddress(address2);
 				emp.setEmpId(id);
-				method.upadteEmployee(emp);
+				// method.upadteEmployee(emp);
 				break;
 
 			default:
@@ -113,7 +132,7 @@ public class EmployeeMnagementTest {
 			case 2:
 				System.out.println("Enter your Employee Name:");
 				String nameSerach = sc.next();
-				emp.setEmpName(nameSerach);
+				// emp.setEmpName(nameSerach);
 				emp.setEmpStatus("Active");
 				method.searchEmployeeByName(emp);
 				break;
