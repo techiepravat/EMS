@@ -76,16 +76,26 @@ public class EmployeeMnagementTest {
 			System.out.println("1:- NAME");
 			System.out.println("2:- ADDRESS");
 			System.out.println("3:- NAME AND ADDRESS");
+			System.out.println("4:- DATE OF BIRTH");
+			System.out.println("5:- NAME AND DATE OF BIRTH");
 
 			System.out.println("Choose an option:");
 			int selectionEdit = sc.nextInt();
 			switch (selectionEdit) {
 			case 1:
-				System.out.println("Enter your Employee Name:");
-				String name1 = sc.next();
-				// emp.setEmpName(name1);
+				System.out.println("Enter your Employee First Name:");
+				String fiName = sc.next();
+				System.out.println("Enter your Employee Middle Name:");
+				String miName = sc.nextLine();
+				System.out.println("Enter your Employee Last Name:");
+				String laName = sc.next();
+
+				emp.setFirstName(fiName);
+				emp.setMiddleName(miName);
+				emp.setLastName(laName);
 				emp.setEmpId(id);
-				// method.upadteEmployee(emp);
+
+				method.upadteEmployee(emp);
 				break;
 			case 2:
 				System.out.println("Enter your Employee Address:");
@@ -93,24 +103,63 @@ public class EmployeeMnagementTest {
 				String address1 = sc.next();
 				emp.setEmpAddress(address1);
 				emp.setEmpId(id);
-				// employee.add(emp);
-				// method.upadteEmployee(emp);
+				employee.add(emp);
+				method.upadteEmployee(emp);
 				break;
 			case 3:
-				System.out.println("Enter your Employee Name:");
-				String name2 = sc.next();
+				System.out.println("Enter your Employee First Name:");
+				String uName = sc.next();
+				sc.nextLine();
+				System.out.println("Enter your Employee Middle Name:");
+				String upName = sc.next();
+				System.out.println("Enter your Employee Last Name:");
+				String dName = sc.next();
 				System.out.println("Enter your Employee Address:");
 				String address2 = sc.next();
-				// emp.setEmpName(name2);
+
+				emp.setFirstName(uName);
+				emp.setMiddleName(upName);
+				emp.setLastName(dName);
+
 				emp.setEmpAddress(address2);
 				emp.setEmpId(id);
-				// method.upadteEmployee(emp);
+				method.upadteEmployee(emp);
+				break;
+			case 4:
+				System.out.println("Enter your Employee Date Of Birth(yyyy-MM-dd) :");
+				String date = sc.next();
+
+				Date dateOf = new SimpleDateFormat("yyyy-MM-dd").parse(date);
+				emp.setEmpbirthDate(dateOf);
+				emp.setEmpId(id);
+				method.upadteEmployee(emp);
+				break;
+			case 5:
+				System.out.println("Enter your Employee First Name:");
+				String name1 = sc.next();
+				System.out.println("Enter your Employee Middle Name:");
+				String name2 = sc.next();
+				System.out.println("Enter your Employee Last Name:");
+				String name3 = sc.next();
+				System.out.println("Enter your Employee Date Of Birth(yyyy-MM-dd) :");
+				String dateBirth = sc.next();
+
+				Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(dateBirth);
+
+				emp.setFirstName(name1);
+				emp.setMiddleName(name2);
+				emp.setLastName(name3);
+				emp.setEmpbirthDate(date2);
+				emp.setEmpId(id);
+				method.upadteEmployee(emp);
 				break;
 
 			default:
 				System.out.println("Please select a valid option for Edit Employee");
 				break;
 			}
+			break;
+
 		case 3:
 			System.out.println("3 - Search Employee");
 			System.out.println("------------------------");
@@ -123,6 +172,7 @@ public class EmployeeMnagementTest {
 			int selectionSearch = sc.nextInt();
 			switch (selectionSearch) {
 			case 1:
+
 				System.out.println("Enter your Employee Id:");
 				int id1 = sc.nextInt();
 				emp.setEmpId(id1);
@@ -130,18 +180,35 @@ public class EmployeeMnagementTest {
 				method.searchEmployeeById(emp);
 				break;
 			case 2:
-				System.out.println("Enter your Employee Name:");
-				String nameSerach = sc.next();
-				// emp.setEmpName(nameSerach);
-				emp.setEmpStatus("Active");
-				method.searchEmployeeByName(emp);
-				break;
 
+				System.out.println("What you want to Search");
+				System.out.println("1:- BY FIRST NAME");
+				System.out.println("2:- BY LAST NAME");
+
+				System.out.println("Choose an option:");
+				int selectionSearch1 = sc.nextInt();
+				switch (selectionSearch1) {
+				case 1:
+					System.out.println("Enter your Employee First Name:");
+					String nameSerach = sc.next();
+					emp.setFirstName(nameSerach);
+					emp.setEmpStatus("Active");
+					method.searchEmployeeByName(emp);
+					break;
+				case 2:
+					System.out.println("Enter your Employee Last Name:");
+					String nameSerach2 = sc.next();
+					emp.setLastName(nameSerach2);
+					emp.setEmpStatus("Active");
+					method.searchEmployeeByName(emp);
+					break;
+				}
 			default:
-				System.out.println("Please select a valid option for Edit Employee");
+				System.out.println("Please select a valid option for search Employee");
 				break;
 			}
 		case 4:
+
 			System.out.println("4 - Delete Employee");
 			System.out.println("------------------------");
 			System.out.println("Enter your Employee id:");

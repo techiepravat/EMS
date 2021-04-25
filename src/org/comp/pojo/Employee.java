@@ -1,8 +1,16 @@
 package org.comp.pojo;
 
 import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import org.comp.connection.ConnectionManager;
 
 public class Employee implements Serializable {
 
@@ -85,4 +93,6 @@ public class Employee implements Serializable {
 				+ lastName + ", mailId=" + mailId + ", empbirthDate=" + empbirthDate + ", empAddress=" + empAddress
 				+ ", empStatus=" + empStatus + "]";
 	}
+
 }
+
