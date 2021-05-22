@@ -17,8 +17,9 @@ public class DateUtil {
 		Date currentDate = dateJoin.parse(date1);
 		// boolean isAfter = empJoinDate.after(currentDate);
 		if (empJoinDate.equals(currentDate) || empJoinDate.after(currentDate)) {
-			return currentDate.to;
+			return true;
 		}
+		return true;
 	}
 
 
