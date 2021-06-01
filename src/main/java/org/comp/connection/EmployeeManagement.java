@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -64,7 +65,9 @@ public class EmployeeManagement {
 	// UPDATE EMPLOYEE
 	public Employee updateEmployee(Employee emp) throws ClassNotFoundException, SQLException {
 
-		Connection con = ConnectionManager.getConnection(); // For Dynamic Query Generation
+		Connection con = ConnectionManager.getConnection();
+
+		// For Dynamic Query Generation
 		StringBuilder sqlUpdate = new StringBuilder();
 		sqlUpdate.append("UPDATE EMPDETAILS SET ");
 
@@ -221,7 +224,7 @@ public class EmployeeManagement {
 	}
 
 	// Search By Name Employees
-	public void searchEmployeeByName(Employee emp) throws ClassNotFoundException, SQLException {
+	public Employee searchEmployeeByName(Employee emp) throws ClassNotFoundException, SQLException {
 		Connection con = ConnectionManager.getConnection();
 
 		StringBuilder sqlUpdate = new StringBuilder();
@@ -265,10 +268,11 @@ public class EmployeeManagement {
 		} catch (Exception e) {
 			System.out.println("Unable to try");
 		}
+		return emp;
 	}
 
 	// Search By ID Employees
-	public void searchEmployeeById(Employee emp) throws ClassNotFoundException, SQLException {
+	public Employee searchEmployeeById(Employee emp) throws ClassNotFoundException, SQLException {
 		Connection con = ConnectionManager.getConnection();
 		String sqlSearch = "SELECT * FROM EMPDETAILS WHERE EMPID =?";
 
@@ -300,14 +304,16 @@ public class EmployeeManagement {
 		} catch (Exception e) {
 			System.out.println("Unable to Search the Employee id");
 		}
+		return emp;
 
 	}
 
 	// Deactive Employees
-	public void deActivatedEmployee(Employee emp) throws ClassNotFoundException, SQLException {
+	public boolean deActivatedEmployee(Employee emp) throws ClassNotFoundException, SQLException {
 
 		Connection con = ConnectionManager.getConnection();
 		String sqlDelete = "UPDATE EMPDETAILS SET EMPSTATUS=? WHERE EMPID=?";
+		boolean isEmployeeDeactivated = false;
 
 		try {
 
@@ -319,13 +325,19 @@ public class EmployeeManagement {
 			if (rowsDelete > 0) {
 				System.out.println("Employee was Deactivated Successfully!");
 			}
+			isEmployeeDeactivated = true;
 		} catch (Exception e) {
 			System.out.println("unable to try");
 		}
+		return isEmployeeDeactivated;
+
 	}
 
 	// Retrieve all Employees
-	public void retrieveEmployee(Employee emp) throws ClassNotFoundException, SQLException {
+	public List<Employee> retrieveEmployee() throws ClassNotFoundException, SQLException {
+
+		List<Employee> list = new ArrayList<Employee>();
+
 		Connection con = ConnectionManager.getConnection();
 		String sqlRetrieve = "SELECT * FROM EMPDETAILS";
 
@@ -346,23 +358,52 @@ public class EmployeeManagement {
 
 			while (result.next()) {
 
+				Employee emp = new Employee();
+
 				int empId = result.getInt(1);
+				emp.setEmpId(empId);
+
 				String firstName = result.getString(2);
+				emp.setFirstName(firstName);
+
 				String middleName = result.getString(3);
+				emp.setMiddleName(middleName);
+
 				String lastName = result.getString(4);
+				emp.setLastName(lastName);
+
 				String mailId = result.getString(5);
+				emp.setMailId(mailId);
+
 				long mobileNo = result.getLong(6);
+				emp.setMobileNo(mobileNo);
+
 				String empAddress = result.getString(7);
+				emp.setEmpAddress(empAddress);
 				String birthDate = result.getString(8);
+				emp.setEmpbirthDate(result.getDate(8));
+
 				String empStatus = result.getString(9);
+				emp.setEmpStatus(empStatus);
 				Date joinDate2 = result.getDate(10);
+				emp.setJoinDate(joinDate2);
+				String gender = result.getString(11);
+				emp.setGender(gender);
+				long sal = result.getLong(12);
+				emp.setSalary(sal);
+				String country = result.getString(13);
+				emp.setCountry(country);
+
+				list.add(emp);
 
 				System.out.println("\n");
 				System.out.println(empId + firstName + middleName + lastName + mailId + +mobileNo + birthDate
-						+ empAddress + empStatus + joinDate2);
+						+ empAddress + empStatus + joinDate2 + gender + sal + country);
+
 			}
 		} catch (Exception e) {
-			System.out.println("Unable to retrieve Employee Details .");
+			System.out.println("Unable to retrieve Employee Details");
 		}
+		return list;
 	}
 }

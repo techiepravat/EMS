@@ -360,7 +360,7 @@ public class EmployeeMnagementTest {
 			System.out.println("5 - Retrieve Employee");
 			System.out.println("------------------------");
 
-			method.retrieveEmployee(emp);
+			method.retrieveEmployee();
 			break;
 		}
 
