@@ -66,7 +66,6 @@ public class EmployeeManagement {
 	public Employee updateEmployee(Employee emp) throws ClassNotFoundException, SQLException {
 
 		Connection con = ConnectionManager.getConnection();
-
 		// For Dynamic Query Generation
 		StringBuilder sqlUpdate = new StringBuilder();
 		sqlUpdate.append("UPDATE EMPDETAILS SET ");
@@ -224,27 +223,27 @@ public class EmployeeManagement {
 	}
 
 	// Search By Name Employees
-	public Employee searchEmployeeByName(Employee emp) throws ClassNotFoundException, SQLException {
-		Connection con = ConnectionManager.getConnection();
+	public Employee searchEmployeeByName(Employee emp) throws ClassNotFoundException {
 
-		StringBuilder sqlUpdate = new StringBuilder();
-		/*
-		 * sqlUpdate.append("SELECT * FROM EMPDETAILS WHERE FIRST_NAME LIKE '");
-		 * sqlUpdate.append(emp.getFirstName()).append('%').append("'");
-		 */
-
-		sqlUpdate.append("SELECT * FROM EMPDETAILS WHERE ");
-		if (emp.getFirstName() != null) {
-			sqlUpdate.append(" FIRST_NAME LIKE '");
-			sqlUpdate.append(emp.getFirstName()).append('%').append("'");
-		} else if (emp.getLastName() != null) {
-			sqlUpdate.append(" LAST_NAME LIKE '");
-			sqlUpdate.append(emp.getLastName()).append('%').append("'");
-		}
 		try {
+			Connection con = ConnectionManager.getConnection();
 
+			StringBuilder sqlUpdate = new StringBuilder();
+			/*
+			 * sqlUpdate.append("SELECT * FROM EMPDETAILS WHERE FIRST_NAME LIKE '");
+			 * sqlUpdate.append(emp.getFirstName()).append('%').append("'");
+			 */
+
+			sqlUpdate.append("SELECT * FROM EMPDETAILS WHERE ");
+			if (emp.getFirstName() != null) {
+				sqlUpdate.append(" FIRST_NAME LIKE '");
+				sqlUpdate.append(emp.getFirstName()).append('%').append("'");
+			} else if (emp.getLastName() != null) {
+				sqlUpdate.append(" LAST_NAME LIKE '");
+				sqlUpdate.append(emp.getLastName()).append('%').append("'");
+			}
 			PreparedStatement searchStmt = con.prepareStatement(sqlUpdate.toString());
-			System.out.println(searchStmt.toString());
+			// System.out.println(searchStmt.toString());
 
 			ResultSet rs = searchStmt.executeQuery();
 
@@ -261,12 +260,12 @@ public class EmployeeManagement {
 				long sal = rs.getLong(12);
 				String country = rs.getString(13);
 
-				System.out.println("EMPLOYEE DETAILS IS:" + empId + " , " + fullName + " ," + mailId + " , " + mobileNo
-						+ " , " + birthDate + " , " + empAddress + " , " + empStatus + " , " + joinDate + " , " + gender
-						+ " , " + sal + " , " + country);
+				System.out.println("EMPLOYEE DETAILS BY NAME IS:" + empId + " , " + fullName + " ," + mailId + " , "
+						+ mobileNo + " , " + birthDate + " , " + empAddress + " , " + empStatus + " , " + joinDate
+						+ " , " + gender + " , " + sal + " , " + country);
 			}
 		} catch (Exception e) {
-			System.out.println("Unable to try");
+			System.out.println("Unable to try for search by name");
 		}
 		return emp;
 	}
@@ -283,7 +282,6 @@ public class EmployeeManagement {
 			// System.out.println(searchStmt.toString());
 
 			ResultSet rs = searchStmt.executeQuery();
-
 			while (rs.next()) {
 				int empId = rs.getInt(1);
 				String fullName = (rs.getString(2) + rs.getString(3) + rs.getString(4));
@@ -297,9 +295,9 @@ public class EmployeeManagement {
 				long sal = rs.getLong(12);
 				String country = rs.getString(13);
 
-				System.out.println("EMPLOYEE DETAILS IS:" + empId + " , " + fullName + " ," + mailId + " , " + mobileNo
-						+ " , " + birthDate + " , " + empAddress + " , " + empStatus + " , " + joinDate1 + " , "
-						+ gender + " , " + sal + " , " + country);
+				System.out.println("EMPLOYEE DETAILS IS BY ID:" + empId + " , " + fullName + " ," + mailId + " , "
+						+ mobileNo + " , " + birthDate + " , " + empAddress + " , " + empStatus + " , " + joinDate1
+						+ " , " + gender + " , " + sal + " , " + country);
 			}
 		} catch (Exception e) {
 			System.out.println("Unable to Search the Employee id");
@@ -361,48 +359,43 @@ public class EmployeeManagement {
 				Employee emp = new Employee();
 
 				int empId = result.getInt(1);
-				emp.setEmpId(empId);
-
 				String firstName = result.getString(2);
-				emp.setFirstName(firstName);
-
 				String middleName = result.getString(3);
-				emp.setMiddleName(middleName);
-
 				String lastName = result.getString(4);
-				emp.setLastName(lastName);
-
 				String mailId = result.getString(5);
-				emp.setMailId(mailId);
-
 				long mobileNo = result.getLong(6);
-				emp.setMobileNo(mobileNo);
-
 				String empAddress = result.getString(7);
-				emp.setEmpAddress(empAddress);
 				String birthDate = result.getString(8);
-				emp.setEmpbirthDate(result.getDate(8));
-
 				String empStatus = result.getString(9);
-				emp.setEmpStatus(empStatus);
 				Date joinDate2 = result.getDate(10);
-				emp.setJoinDate(joinDate2);
 				String gender = result.getString(11);
-				emp.setGender(gender);
 				long sal = result.getLong(12);
-				emp.setSalary(sal);
 				String country = result.getString(13);
+
+				emp.setEmpId(empId);
+				emp.setFirstName(firstName);
+				emp.setMiddleName(middleName);
+				emp.setLastName(lastName);
+				emp.setMailId(mailId);
+				emp.setMobileNo(mobileNo);
+				emp.setEmpAddress(empAddress);
+				emp.setEmpbirthDate(result.getDate(8));
+				emp.setEmpStatus(empStatus);
+				emp.setJoinDate(joinDate2);
+				emp.setGender(gender);
+				emp.setSalary(sal);
 				emp.setCountry(country);
 
 				list.add(emp);
 
 				System.out.println("\n");
-				System.out.println(empId + firstName + middleName + lastName + mailId + +mobileNo + birthDate
-						+ empAddress + empStatus + joinDate2 + gender + sal + country);
+				System.out.println("EMPLOYEE DETAILS IS BY ID:" + empId + " ," + firstName + " ," + middleName + " ,"
+						+ lastName + " ," + mailId + " , " + mobileNo + " , " + birthDate + " , " + empAddress + " , "
+						+ empStatus + " , " + joinDate2 + " , " + gender + " , " + sal + " , " + country);
 
 			}
 		} catch (Exception e) {
-			System.out.println("Unable to retrieve Employee Details");
+			System.out.println("Unable to Retrieve Employee Details");
 		}
 		return list;
 	}

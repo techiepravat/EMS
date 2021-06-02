@@ -46,6 +46,7 @@ public class DeactivatedEmployeeTest {
 			assertEquals(true, actual);
 		}
 	}
+
 	@Test
 	public void deActivatedEmployee_shouldReturnFalse() throws ClassNotFoundException, SQLException {
 
@@ -68,5 +69,4 @@ public class DeactivatedEmployeeTest {
 			assertEquals(false, actual);
 		}
 	}
-	
 }
